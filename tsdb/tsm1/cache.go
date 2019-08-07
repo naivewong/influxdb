@@ -264,6 +264,7 @@ func (c *Cache) MaxSize() uint64 {
 	return c.maxSize
 }
 
+// Return the number of the entry in ring.
 func (c *Cache) Count() int {
 	c.mu.RLock()
 	n := c.store.count()

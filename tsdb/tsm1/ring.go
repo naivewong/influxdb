@@ -110,6 +110,7 @@ func (r *ring) keys(sorted bool) [][]byte {
 	return keys
 }
 
+// Return the number of the entry.
 func (r *ring) count() int {
 	var n int
 	for _, p := range r.partitions {

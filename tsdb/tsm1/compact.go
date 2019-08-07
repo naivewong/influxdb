@@ -617,7 +617,7 @@ func (c *DefaultPlanner) findGenerations(skipInUse bool) tsmGenerations {
 	}
 
 	genTime := c.FileStore.LastModified()
-	tsmStats := c.FileStore.Stats()
+	tsmStats := c.FileStore.Stats() // The files are sorted by file name.
 	generations := make(map[int]*tsmGeneration, len(tsmStats))
 	for _, f := range tsmStats {
 		gen, _, _ := c.ParseFileName(f.Path)
@@ -825,7 +825,7 @@ func (c *Compactor) WriteSnapshot(ctx context.Context, cache *Cache) ([]string, 
 	}
 
 	start := time.Now()
-	card := cache.Count()
+	card := cache.Count() // Return the number of the entry of the ring in cache.
 
 	// Enable throttling if we have lower cardinality or snapshots are going fast.
 	throttle := card < 3e6 && c.snapshotLatencies.avg() < 15*time.Second
