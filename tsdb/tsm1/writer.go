@@ -452,6 +452,9 @@ func copyBuffer(f syncer, dst io.Writer, src io.Reader, buf []byte) (written int
 	return written, err
 }
 
+// First flush to the d.w (bufio.Writer) --> 1. A simple []byte buf 2. file
+// If d.w constains a []byte buf, copyBuffer to w.
+// Else, the content will directly be flushed to disk file.
 func (d *directIndex) WriteTo(w io.Writer) (int64, error) {
 	if _, err := d.flush(d.w); err != nil {
 		return 0, err

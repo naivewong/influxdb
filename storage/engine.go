@@ -432,6 +432,7 @@ func (e *Engine) WritePoints(ctx context.Context, points []models.Point) error {
 			continue
 		}
 
+		// Copy element in iter.Index() to j, will return immediately if ite.Index() == j.
 		collection.Copy(j, iter.Index())
 		j++
 	}

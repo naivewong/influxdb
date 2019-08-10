@@ -183,6 +183,12 @@ func (r *ring) applySerial(f func([]byte, *entry) error) error {
 	return nil
 }
 
+// The current length of partitions is 16.
+// For example, if we split by 2, suppose * represent the splited elements.
+// [* * * * * * * *]
+//    =====>
+// [* x * x * x * x]
+// [x * x * x * x *]
 func (r *ring) split(n int) []*ring {
 	var keys int
 	storers := make([]*ring, n)
